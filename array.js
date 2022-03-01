@@ -208,3 +208,36 @@ function copyArrReverse(targetArr){
 let newArr2= copyArrReverse(target4);
 document.write(target4+ " 를 가진 배열을 카피한 배열 => ");
 document.write(newArr2);
+
+
+
+//javascript_info 
+//배열내 객체의 id를 키값으로 하는  객체로 반환하는 함수
+function groupById(users){
+    return users.reduce((pre,curr)=>{
+      pre[curr.id]= curr;
+      return pre;
+      },{});
+    }
+  
+  groupById(users);
+
+//javascript_info 
+//중복데이터 제거
+function unique(arr) {
+
+    let temp =[];
+    arr.forEach(element => {
+        if(!temp.includes(element)) {
+            console.log(element);
+            temp.push(element)
+        }
+    });
+console.log(temp);
+    return temp;  
+}
+  
+  let strings = ["Hare", "Krishna", "Hare", "Krishna",
+    "Krishna", "Krishna", "Hare", "Hare", ":-O"
+  ];
+  

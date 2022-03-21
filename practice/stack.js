@@ -83,4 +83,4 @@ class DoubleStack {
   }
 }
 
-export { Stack };
+export default Stack;

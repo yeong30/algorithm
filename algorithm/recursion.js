@@ -323,7 +323,80 @@ function recur2(n) {
   console.log(n + "번 진입");
   if (n > 0) {
     recur2(n - 2);
-    console.log(n);
     recur(n - 1);
   }
 }
+
+class AStack {
+  constructor(max) {
+    this.max = max;
+    this.pt = 0;
+    this.stk = [];
+  }
+  pop() {
+    if (this.pt <= 0) throw "stack is null";
+    else {
+      return this.stk[--this.pt];
+    }
+  }
+  push(item) {
+    if (this.pt >= this.max) throw "stack is full";
+    else this.stk[this.pt++] = item;
+    return item;
+  }
+  isEmpty() {
+    return this.pt <= 0;
+  }
+  isFull() {
+    return this.pt >= this.max;
+  }
+  peek() {
+    if (this.pt <= 0) throw "stack is null";
+    else return this.stk[this.pt - 1];
+  }
+}
+
+function recur3_1(n) {
+  if (n > 0) {
+    recur(n - 1);
+    recur(n - 2);
+    document.write(n + "<br/>");
+  }
+}
+// 재귀를 비재귀 함수로 변경
+function recur3_2(n) {
+  let stk = new AStack(100);
+  let stepStk = new AStack(100);
+  let step = 0;
+  while (true) {
+    if (n > 0) {
+      console.log(n);
+
+      if (step == 0) {
+        stk.push(n);
+        stepStk.push(step);
+        n--;
+        continue;
+      } else if (step == 1) {
+        stk.push(n);
+        stepStk.push(step);
+        step = 0;
+        n = n - 2;
+        continue;
+      }
+    }
+    if (!stk.isEmpty()) {
+      n = stk.pop();
+      step = stepStk.pop() + 1;
+      if (step == 2) {
+        document.write(n + "<br/>");
+        continue;
+      } else {
+        continue;
+      }
+    } else {
+      break;
+    }
+  }
+}
+let rs = recur(3);

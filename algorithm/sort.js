@@ -41,22 +41,57 @@ class BubbleSort {
   //     // this.endAlarm();
   //   }
   /**알고리즘 개선 */
+  //   bubbleSort() {
+  //     let n = this.arr.length;
+  //     let k = 0;
+  //     for (let i = 0; i < n; i++) {
+  //       let last = n - 1;
+  //       document.write(`패스(${i + 1}) : <br/>`);
+  //       for (let j = n - 1; j > k; j--) {
+  //         this.print(j - 1);
+  //         if (this.arr[j] < this.arr[j - 1]) {
+  //           this.swap(j, j - 1);
+  //           last = j;
+  //         }
+  //       }
+  //       k = last;
+  //       this.print();
+  //       if (k === n - 1) break;
+  //     }
+  //   }
+  /**양방향 버블솔트 */
+  // [9,1,2,3,4,5,6,7,8]
+  // 패스가 홀수번째일때는 가장 작은값을 앞으로 , 패스가 짝수일때는 가장 큰값을 뒤로
   bubbleSort() {
     let n = this.arr.length;
-    let k = 0;
+    let oddK = 0;
+    let evenK = n - 1;
+
     for (let i = 0; i < n; i++) {
       let last = n - 1;
       document.write(`패스(${i + 1}) : <br/>`);
-      for (let j = n - 1; j > k; j--) {
-        this.print(j - 1);
-        if (this.arr[j] < this.arr[j - 1]) {
-          this.swap(j, j - 1);
-          last = j;
+      if ((i + 1) % 2 !== 0) {
+        for (let j = evenK; j > oddK; j--) {
+          this.print(j - 1);
+          if (this.arr[j] < this.arr[j - 1]) {
+            this.swap(j, j - 1);
+            last = j;
+          }
         }
+        oddK = last;
+      } else {
+        let last = 0;
+        for (let j = oddK; j < evenK; j++) {
+          this.print(j);
+          if (this.arr[j] > this.arr[j + 1]) {
+            this.swap(j, j + 1);
+            last = j;
+          }
+        }
+        evenK = last;
       }
-      k = last;
+      if (evenK === 0 && oddK === n - 1) break;
       this.print();
-      if (k === n - 1) break;
     }
   }
 
@@ -80,6 +115,6 @@ class BubbleSort {
   }
 }
 
-let arr = [6, 4, 3, 7, 1, 9, 8];
+let arr = [9, 1, 2, 3, 4, 5, 6, 7, 8];
 const sort = new BubbleSort(arr);
 sort.bubbleSort();
